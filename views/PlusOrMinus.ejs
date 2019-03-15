@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Game#3</title>
+
+    <% include partials/scripts.ejs %>
+
+</head>
+<body class="backfond">
+	<div class="jumbotron jumbotron-fluid primary white">
+		<div class="container text-center">
+		    <h1 class="display-4">
+		        Bienvenue au jeu du PLUS ou MOINS !
+		    </h1>
+		</div>
+        </div>
+        
+        <div class="text-center">
+	 	<input autofocus class="test-form-ctl w-25" type="text" name="repUtilisateur" id="inputID">
+	 	<button class="btn secondary white" type="submit" id="buttonID" onclick="pOm.donneNombre()" > 
+	 		Donner ma réponse
+	 	</button>
+	 	
+	 	
+	 	
+	 	
+	 	<p class="mt-4">
+	 		SCORE : <div id="scoreID"></div>
+	 	</p>
+	 	
+	 	<p id = "PLUSOUMOINS">
+	 		INDICATION : 
+	 	</p>
+	 	<p id = "indicationID">
+	 		
+	 	</p>
+
+	 	<p id="directiveID">
+	 		
+	 	</p>
+ 	</div>
+ 	
+
+ 	<div class="text-left offset-1">
+ 		<form action="/profile">
+ 		<button class="btn secondary white" type="submit" id="buttonBackID" onclick="pOm.finDuJeu()" > retourner au Profil</button>
+ 	</form>
+ 	</div>
+ 	
+ 	
+
+ 	<script type="text/javascript">
+ 		pOm.refreshScoreAndIndication();
+ 	</script>
+</body>
+</html>
