@@ -18,6 +18,21 @@
   color: black;
 }
 
+
+.passage:hover{
+  color : #43505e ;
+}
+
+.noUnderline{
+  color: #e67e22;
+  font: "Arial", sans-serif;
+}
+.noUnderline:hover   {
+  /* Applies to links under the pointer */
+  text-decoration:  None;
+
+ 
+  } 
 .test-form-ctl {
   
   width: 100%;

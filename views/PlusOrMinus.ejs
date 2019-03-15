@@ -15,10 +15,11 @@
 		    </h1>
 		</div>
         </div>
-        
+
+        </script>
         <div class="text-center">
 	 	<input autofocus class="test-form-ctl w-25" type="text" name="repUtilisateur" id="inputID">
-	 	<button class="btn secondary white" type="submit" id="buttonID" onclick="pOm.donneNombre()" > 
+	 	<button class="btn secondary white passage" type="submit" id="buttonID" onclick="pOm.donneNombre()" > 
 	 		Donner ma réponse
 	 	</button>
 	 	
@@ -44,7 +45,7 @@
 
  	<div class="text-left offset-1">
  		<form action="/profile">
- 		<button class="btn secondary white" type="submit" id="buttonBackID" onclick="pOm.finDuJeu()" > retourner au Profil</button>
+ 		<button class="btn secondary white passage" type="submit" id="buttonBackID" onclick="pOm.finDuJeu()" > retourner au Profil</button>
  	</form>
  	</div>
  	
@@ -52,6 +53,11 @@
 
  	<script type="text/javascript">
  		pOm.refreshScoreAndIndication();
+		config();
+        	
+
+        	
+	
  	</script>
 </body>
 </html>

@@ -7,13 +7,13 @@
   <title>Welcome</title>
   <% include partials/scripts.ejs %>
 </head>
-<body>
+<body class="backfond">
   <div class="jumbotron jumbotron-fluid primary white">
     <div class="container text-center">
       <h1 class="display-2">
         Bonjour, <%= user.username %>
       </h1>
-      <a class="btn secondary white btn-lg" href="/logout">Logout</a>
+      <a class="btn secondary white btn-lg passage" href="/logout">Logout</a>
     </div>
   </div>
 <div class="container text-center">
@@ -21,7 +21,7 @@
 <% games.forEach(function(item){%>
     <p>
       
-      <a href="/<%=item.name%>">
+      <a class="passage noUnderline display-3" href="/<%=item.name%>">
         <%=item.name%> ----- <%=item.highscore%>
       </a>
     </p>
