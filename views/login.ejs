@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-    <% include partials/scripts.ejs %>
+    <% include partials/scripts.ejs %> <!-- on inclut tous les fichiers frontend (bootstrap) -->
 </head>
 
 <body class="backfond">
@@ -19,7 +19,8 @@
     </div>
 
     <div class="container">
-        <form action="/auth/login" class="col-md-5" method="post">
+        <form action="/auth/login" class="col-md-5" method="post"> <!-- on envoie une requête POST sur l'URL /auth/login 
+        une  fois que le bouton est cliqué -->
             <div class="form-group">
                 <label for="">Username :</label>
                 <input autofocus class="form-control" type="text" name="username">
