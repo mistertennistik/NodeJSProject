@@ -1,0 +1,27 @@
+db.users.update({username:"toto"}, {$set: {games: [{jeu : "fakeJeu1", date: new Date(), score : 123}, 
+{jeu : 'fakeJeu1', date: new Date(), score : 500}, 
+{jeu : 'fakeJeu1', date: new Date(), score : 3}
+
+
+]}}, false, true);
+
+
+
+
+
+
+db.users.update({_id : ObjectId("5c9245a2e3270717690311a8")}, {games : []})
+
+
+{ "_id" : ObjectId("5c8b87515c8eb9030fd77470"), "username" : "voneuw", "password" : "$2a$10$TePxrYmLoVZJ.srIN9vok.dJbzWjWXJg6eF5PYp6lbuTpP.TIbbgq", "__v" : 0 }
+
+//// Cette requete foncitonnne pour mettre à jour
+
+db.users.update({_id : ObjectId("5c8b87515c8eb9030fd77470")}, 
+{"username":"voneuw",password:"$2a$10$TePxrYmLoVZJ.srIN9vok.dJbzWjWXJg6eF5PYp6lbuTpP.TIbbgq", 
+__v : 0, games :[{jeu : "fakeJeu1", date: new Date(), score : 123}, 
+{jeu : 'fakeJeu1', date: new Date(), score : 500}, 
+{jeu : 'fakeJeu1', date: new Date(), score : 3} ]})
+
+
+db.games.update({_id : ObjectId("5c99dec7d907e85d3c8fa17f")}, {name : "PlusOrMinus", highscore : 3})

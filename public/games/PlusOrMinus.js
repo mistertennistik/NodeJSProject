@@ -37,7 +37,7 @@ class PlusOrMinus{
 				}else{
 					document.getElementById("indicationID").innerHTML = "c'est GAGNÉ !!!!!";
 					this.isPartieTerminee = true;
-					this.finDuJeu();
+					this.finPartie();
 				}
 		
 		
@@ -78,7 +78,7 @@ class PlusOrMinus{
 			}
 	
 	newPartie(){
-		this.finDuJeu();
+		//this.finPartie();
 		this.scorePartie = 100;
 		this.propositionJoueur=null;
 		this.nbAdeviner = this.tirerAleatoire();
@@ -90,25 +90,14 @@ class PlusOrMinus{
 	}
 
 	
+	finPartie(){
+			sendData({score : this.scorePartie}, '/endGame');
+
+	}
 
 	finDuJeu(){
 
-		/*const Http = new XMLHttpRequest();
-		const url = "/endGame";
-		Http.open("PUT", url);
-		var data = {
-			score : this.scorePartie
-		}
-		Http.setRequestHeader("Content-Type", "application/json");
-		Http.send(data);
-
-		Http.onreadystatechange= function(){
-			if(this.readyState==4 && this.status==200){
-				console.log(Http.responseText);
-			}
-		}
-*/
-		sendData({score : this.scorePartie}, '/endGame');
+		
 		
 
 	}
@@ -156,9 +145,13 @@ function sendData(data, url) {
 }
 
 
-var pOm = new PlusOrMinus();
 
-config = ()=>{
+var pOm;
+
+config = function(){
+
+	
+	pOm = new PlusOrMinus();
 
 	var input = document.getElementById("inputID");
 
