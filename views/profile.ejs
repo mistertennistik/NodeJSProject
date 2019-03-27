@@ -21,8 +21,8 @@
     <!-- cette boucle fait apparaître tous les jeux présents dans la base -->
 <% games.forEach(function(item){%>
     <p>
-      <!-- noUnderline est une fonction que nous avons mis dans notre css pour ne pas faire apparaitre le trait sous le lien http -->
-      <!-- de même passage permet de changer la couleur lors d'un 'hover' sur le lien. Display-5 règle la taille -->
+      <!-- noUnderline est une fonction que nous avons mis dans notre css pour ne pas faire apparaitre le trait sous le lien http 
+      de même passage permet de changer la couleur lors d'un hover sur le lien. Display-5 règle la taille -->
       <a class="passage noUnderline display-5" href="/<%=item.name%>">
         <%=item.name%> -----  highscore : <%=item.highscore%> -------- </br> your highscore : <%=scoreJoueur[item.name]%>
       </a>
