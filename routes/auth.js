@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../db/User');
 
-/* GET home page. */
+
 
 
 module.exports = function (passport) {
