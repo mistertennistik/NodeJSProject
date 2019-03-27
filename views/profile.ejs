@@ -21,8 +21,8 @@
 <% games.forEach(function(item){%>
     <p>
       
-      <a class="passage noUnderline display-3" href="/<%=item.name%>">
-        <%=item.name%> ----- <%=item.highscore%>
+      <a class="passage noUnderline display-5" href="/<%=item.name%>">
+        <%=item.name%> -----  highscore : <%=item.highscore%> -------- </br> your highscore : <%=scoreJoueur[item.name]%>
       </a>
     </p>
 

@@ -33,6 +33,13 @@
 
  
   } 
+
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 250;
+  line-height: 1.2;
+}
+
 .test-form-ctl {
   
   width: 100%;

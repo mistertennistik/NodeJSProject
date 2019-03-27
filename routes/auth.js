@@ -27,6 +27,11 @@ module.exports = function (passport) {
                     var record = new User()
                     record.username = username;
                     record.password = record.hashPassword(password)
+                    record.games = [{jeu:"fakeJeu1",date: new Date(), score:0 },
+                    {jeu:"PlusOrMinus",date: new Date(), score:0 },
+                    {jeu:"fakeJeu2",date: new Date(), score:0 }
+
+                    ]
                     record.save(function (err, user) {
                         if (err) {
                             res.status(500).send('Erreur coté BDD')
