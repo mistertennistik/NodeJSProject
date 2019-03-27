@@ -21,7 +21,7 @@
 <% games.forEach(function(item){%> <!-- cette boucle fait apparaître tous les jeux présents dans la base -->
     <p>
       
-      <a href="/<%=item.name%>"> <!-- en faisant /item.name, on met l'url de chacun des jeux -->
+      <a href="/<%=item.name%>"> <!-- en faisant item.name, on met l'url de chacun des jeux -->
         <%=item.name%> ----- <%=item.highscore%>
       </a>
     </p>
