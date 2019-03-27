@@ -1,6 +1,11 @@
 
 
+//Fichier de configuration
 
+
+/*
+* inclusion des middelwares
+*/
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,26 +14,38 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var passport = require('passport');
 
+
+//Middelware pour l'authentification
+var passport = require('passport');
 require('./passport')(passport)
 
+//Connection à la base de donnée (nommée Login)
+// elle contient deux collections : users (voir le schéma db/User) et games (voir le schéma db/Game )
 mongoose.connect('mongodb://localhost:27017/Login')
 
 
-
+/*
+* on inclut les différentes routes de notre serveur définies dans le répertoire routes
+*/
 var index = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth')(passport);
 
+
+// définition de notre application express
 var app = express();
 
-// view engine setup
+// configuration du moteur des vues
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+
+
+/*
+* on indique que l'on utilise nos middelwares
+*/
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -49,7 +66,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/auth', auth)
 
-// catch 404 and forward to error handler
+// pour attraper les erreurs 404 et les diriger vers le erro handler
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -62,7 +79,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // rends la page d'erreur
   res.status(err.status || 500);
   res.render('error');
 });
