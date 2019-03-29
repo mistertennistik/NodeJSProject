@@ -1,6 +1,10 @@
+/**
+* Jeu du Plus ou Moins, également codé par nos soins.
+*/
 
 
 
+// Le jeu est une classe
 class PlusOrMinus{
 
 	constructor(){
@@ -11,16 +15,14 @@ class PlusOrMinus{
 		this.propositionJoueur=null;
 		this.isPartieTerminee = false;
 
-		//this.refreshScore();
-		
-
-
-
 	}
 	
+	//changement du nouveau nombre à deviner
 	nouveauNombreADeviner(){
 		this.nbAdeviner = this.tirerAleatoire;
 	}
+
+	// vérificaiton de la propositon du joueur
 	verify(){
 		console.log(typeof this.propositionJoueur);
 		if (Number.isInteger(this.propositionJoueur)) {
@@ -51,11 +53,14 @@ class PlusOrMinus{
 
 	}
 
+	// renvoie un eniter aléatoire entre 0 et 100
 	tirerAleatoire(){
 		
 		return Math.floor(Math.random() * 100);
 	}
 
+
+	//appelée quand le joueur donne sa réponse
 	donneNombre(){
 		if(this.isPartieTerminee){
 			alert("vous allez comencer une nouvelle partie");
@@ -63,20 +68,25 @@ class PlusOrMinus{
 		}else{
 			this.propositionJoueur = parseInt(document.getElementById("inputID").value);
 		console.log('je recupere : '+ this.propositionJoueur);
-		this.verify();
+		this.verify();// on vérifie si la proposition est la bonne
 		}
 		
 		//console.log('je récupère le nombre : ' +document.getElementById("inputID").value);
 	}
 
+
+	// pour mettre le score à jour dans le .ejs
 	refreshScore(){
 		document.getElementById("scoreID").innerHTML = this.scorePartie;
 	}
+
+	//pour mettre à jour le score et les indications dans le .ejs
 	refreshScoreAndIndication(){
 		this.refreshScore();
 		document.getElementById("indicationID").innerHTML = " ";
 			}
 	
+	// configure les paramètres pour une nouvelle partie
 	newPartie(){
 		//this.finPartie();
 		this.scorePartie = 100;
@@ -89,25 +99,23 @@ class PlusOrMinus{
 
 	}
 
-	
+	// méthode appelée à la fin de la partie
 	finPartie(){
+			// on envoie le score de la partie au server (Cf index.js)
 			sendData({score : this.scorePartie}, '/endGame');
 
 	}
 
-	finDuJeu(){
-
-		
-		
-
-	}
 
 	setUser(username){
 		this.user = username;
 	}
 }
 
-
+/**
+* Procédure qui nous permet de générer une requête PUT vers le server pour envoyer
+* des données 'data' avec l'URL 'url'
+*/
 function sendData(data, url) {
   var XHR = new XMLHttpRequest();
   var urlEncodedData = "";
@@ -146,23 +154,31 @@ function sendData(data, url) {
 
 
 
+
+//  -------- Programme principal ---------
+
+// va contenir une instance de la classe PlusOrMinus (le jeu en somme)
 var pOm;
 
+
+// fonction de configuration appelée au sein de la page 'PlusOrMinus.ejs'
 config = function(){
 
 	
-	pOm = new PlusOrMinus();
+	pOm = new PlusOrMinus(); // On créé l'instance du jeu
 
+	//contient l'ID de l'entrée
 	var input = document.getElementById("inputID");
 
-		// Execute a function when the user releases a key on the keyboard
+// on permet à l'utilisateur d'appuyer sur "entrer" pour valider sa proposition
+
 		input.addEventListener("keyup", function(event) {
-  		// Number 13 is the "Enter" key on the keyboard
+  		// Nombre 13 est le touche "entrer" du clavier
   		if (event.keyCode === 13) {
-    	// Cancel the default action, if needed
+    	// Annule les actions par défaut si besoin
     	event.preventDefault();
-    	// Trigger the button element with a click
-   	 document.getElementById("buttonID").click();
+    	// déclenche la procédure onClick du button : "buttonID"
+   	 document.getElementById("buttonID").click(); 
  	 	}
 		});
 }

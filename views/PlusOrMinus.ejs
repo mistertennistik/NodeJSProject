@@ -20,6 +20,7 @@
         </script>
         <div class="text-center">
 	 	<input autofocus class="test-form-ctl w-25" type="text" name="repUtilisateur" id="inputID">
+	 	<!-- on appelle la méthode donner un nombre au clique -->
 	 	<button class="btn secondary white passage" type="submit" id="buttonID" onclick="pOm.donneNombre()" > 
 	 		Donner ma réponse
 	 	</button>
@@ -46,6 +47,8 @@
 
  	<div class="text-left offset-1">
  		<form action="/profile">
+ 			<!-- on appelle la méthode finDuJeu()  au clique, qui permet de faire les verifications nécessaire
+ 			côté serveur -->
  		<button class="btn secondary white passage" type="submit" id="buttonBackID" onclick="pOm.finDuJeu()" > retourner au Profil</button>
  	</form>
  	</div>
@@ -53,13 +56,13 @@
  	
 
  	<script type="text/javascript">
- 		//pOm.setUser(username);
- 		config();
- 		pOm.refreshScoreAndIndication();
-		
-        	
 
-        	
+ 		// appel à la méthode de configuration dans public/games/PlusOrMinus.js 
+ 		config(); 
+
+ 		// on raffraichît le score et les affichages.
+ 		pOm.refreshScoreAndIndication();
+		  	
 	
  	</script>
 </body>

@@ -9,6 +9,10 @@ var User = require('../db/User');
 var Game = require('../db/Game');
 
 
+/*
+* Callback que l'on va passer à toutes nos requêtes quand on souhaite que l'utilisateur soit connecté
+* (ie Authentifié)
+*/
 var loggedin = function (req, res, next) {
   if (req.isAuthenticated()) {// on passe à la suite si on est loggué
     next()
@@ -17,7 +21,7 @@ var loggedin = function (req, res, next) {
   }
 }
 
-/* GET home page. */
+// Pour avoir la page d'acceuil
 router.get('/', function (req, res, next) {
   res.render('index', {
     title: 'Express'
@@ -25,6 +29,7 @@ router.get('/', function (req, res, next) {
 });
 
 
+// Pour avoir la page de Login
 router.get('/login', function (req, res, next) {
   res.render('login');
 });
@@ -53,7 +58,8 @@ var max={
         max.PlusOrMinus = await User.getUserHighScore(req.user.username,"PlusOrMinus");
 
 
-        //On récupère toutes les informations du document Game grâce à la méthode du schéma pour la vue 
+        //On récupère toutes les informations du document Game grâce à la méthode du schéma, 
+        // pour servir  la vue 
         Game.find({}, function(err, games) {
             //console.log(games);
            res.render('profile', {games: games,
@@ -69,7 +75,7 @@ var max={
 });
 
 // Méthode appelé à la fin d'une partie de Plus ou Moins
-router.put('/endGame', function(req, res){
+router.put('/endGame',function(req, res){
     var sc =req.body.score; // On récupère le score dans le body de la requête (mis par le client PlusOrMinus.js)
     var joueur = req.user.username; // On récupère l'User
     console.log(sc);
@@ -84,13 +90,15 @@ router.put('/endGame', function(req, res){
     res.end(); // Termine le processus de réponse 
 });
 
-router.get('/PlusOrMinus', function (req, res, next) { // Reqête pour accéder au jeu
+// Pour avoir le jeu du Plus ou Moins
+router.get('/PlusOrMinus', loggedin ,function (req, res, next) { // Reqête pour accéder au jeu
   res.render('PlusOrMinus', {username : req.user.username}); // on passe l'username dans la requête
 });
 
 
+// quand on demande à se déconnecter de sa session
 router.get('/logout', function (req, res) {// requête pour se déconnecter
-  req.logout() // méthode ajouter par passport pour gérer les sessions
+  req.logout() // méthode ajoutée par passport pour gérer les sessions
   res.redirect('/') // on redirige à l'entrée de l'application
 })
 module.exports = router;

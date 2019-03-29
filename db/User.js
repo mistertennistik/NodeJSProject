@@ -1,8 +1,20 @@
+/**
+* Modèle. Il s'agit d'un schéma mongoose (API pour la gestion de la BDD
+* MongoDB) 
+*/
+
 var mongoose = require('mongoose')
 var bcrypt = require('bcrypt-nodejs');
 
 var Game = require('./Game');
 var schema = mongoose.Schema;
+
+
+
+/**
+* Schéma d'un joueur avec son nom d'utilisateur, son mot de passe (chiffré) et 
+* une liste des parties qu'il a pu disputer.
+*/
 
 var userSchema = new schema({
     username:{
@@ -25,26 +37,24 @@ var userSchema = new schema({
     
 })
 
+// méthode permettant d'hasher le mot de passe, avec un grain de sel (accentuant l'attaque par Rainbow Table)
 userSchema.methods.hashPassword = function (password) {
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
 }
 
+//méthode permettant de comparer deux mots de passe (un en clair, et l'autre hashé)
 userSchema.methods.comparePassword = function (password,hash) {
     return bcrypt.compareSync(password,hash)
 }
 
 
-userSchema.statics.test = function(id,res) {
-  this.findById(id, function(err, task) {
-    if (err)
-      res.send(err);
-    res.json(task);
-  });
-};
 
-
+/**
+* Méthode Statique du schéma User.
+* Elle permet de récupérer dans la BDD le meilleur score du joueur pour un jeu.
+*/
 userSchema.statics.getUserHighScore=  async function (joueur, jeu) {  
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => { // on utilise des promesses car opération asynchrone
         try {
             var max=0
             var aucunePartieJouee = true;
@@ -60,7 +70,7 @@ userSchema.statics.getUserHighScore=  async function (joueur, jeu) {
                 }
             }
             if(!aucunePartieJouee){// si le joueur a au moins joué une partie
-                resolve(max);
+                resolve(max);// on revoie la valeur
             }else{// sinon...
                 console.log("aucune partie de ce jeu jouée")
             }
@@ -71,6 +81,11 @@ userSchema.statics.getUserHighScore=  async function (joueur, jeu) {
     })
 };
 
+
+/**
+* Méthode Statique du schéma User.
+* Elle permet de mettre a jour le highscore d'un jeu si c'est nécéssaire.
+*/
 userSchema.statics.verifFinPartie = function(score, joueur){
     console.log("on est laaaaa");
     Game.findById("5c99dec7d907e85d3c8fa17f", function(err, jeu){
@@ -90,7 +105,7 @@ userSchema.statics.verifFinPartie = function(score, joueur){
                 }
             });
         }else{
-            console.log("c'est la merde");
+            console.log("Pas d'update");
         }
 
     });
@@ -102,17 +117,9 @@ userSchema.statics.verifFinPartie = function(score, joueur){
 
 
 
-
-
-//enregistre une partie (jeu, date,score) pour un joueur
-// pour une date new Date()
-/* 
-{
-    date : new Date(),
-    jeu : "PlusOrMinus",
-    score : score
-}
-
+/**
+* Méthode Statique du schéma User.
+* Elle permet d'ajouter une partie à la liste des partie d'un joueur.
 */
 userSchema.statics.ajouterPartie = function(joueur,score){
     this.findOneAndUpdate({username: joueur}, {$push: { games: { date : new Date(),
@@ -129,9 +136,5 @@ userSchema.statics.ajouterPartie = function(joueur,score){
 
 }
 
-// récupère le highscore pour un jeu
-/*userSchema.methods.highscore = function(jeu){
-
-}*/
 
 module.exports = mongoose.model('users',userSchema,'users');
